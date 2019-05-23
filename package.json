@@ -30,7 +30,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node-env-run server --exec nodemon | pino-colada",
-    "dev": "run-p server start"
+    "dev": "run-p server start",
+    "curl:login": "echo $(curl -s -X POST -H \"Content-Type: application/json\" -d '{\"username\":\"devin\",\"password\":\"password\"}' http://localhost:3001/login -c cookies.txt)",
+    "curl:greeting": "echo $(curl -s http://localhost:3001/greeting -b cookies.txt)",
+    "curl:logout": "echo $(curl -s http://localhost:3001/logout -b cookies.txt)"
   },
   "eslintConfig": {
     "extends": "react-app"
