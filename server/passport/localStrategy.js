@@ -2,30 +2,17 @@ import { Strategy as LocalStrategy } from 'passport-local';
 
 function validateUser(username, password, done) {
   // TODO replace this with our own ORM stuff
-  /*
-  User.findOne({ username: username }, function (err, user) {
-    if (err) { return done(err); }
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username.' });
-    }
-    if (!user.validPassword(password)) {
-      return done(null, false, { message: 'Incorrect password.' });
-    }
-    return done(null, user);
-  });
-  */
+  const user = { username, id: username };
 
-  const user = {
-    username,
-  };
   if (password === 'password') {
-    return done(null, { username });
+    return done(null, user);
   } else {
     return done(null, false);
   }
 
+  // Error
   // return done(new Error('forced error'));
-
+  // Failure
   // return done(null, false);
 }
 
