@@ -7,7 +7,8 @@ import validateSession from './middleware/validateSession';
 const router = Router();
 
 router.post(login, passport.authenticate('local'), (req, res) => {
-  res.send(JSON.stringify(`Logged in ${req.user.username}`));
+  const message = `Logged in ${req.user.username}`;
+  res.send(JSON.stringify({ message }));
 });
 
 router.get(logout, validateSession, (req, res) => {
@@ -16,8 +17,8 @@ router.get(logout, validateSession, (req, res) => {
 });
 
 router.get(greeting, validateSession, (req, res) => {
-  const greeting = `Hello ${req.user.username}!`;
-  res.send(JSON.stringify({ greeting }));
+  const message = `Hello ${req.user.username}!`;
+  res.send(JSON.stringify({ message }));
 });
 
 export default router;
