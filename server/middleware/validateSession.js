@@ -4,6 +4,6 @@ export default (req, res, next) => {
   if (req.isAuthenticated() && req.user) {
     return next();
   } else {
-    res.redirect(login);
+    res.status(401).send({ error: 'Unauthorized' });
   }
 }

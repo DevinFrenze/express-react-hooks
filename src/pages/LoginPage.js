@@ -1,34 +1,25 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { login } from '../services/authService';
 import InputWrapper from './InputWrapper';
-import LoginResponse, { responses } from './LoginResponse';
+import LoginResponse from './LoginResponse';
 
 export default () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [response, setResponse] = useState(responses.none);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    let newResponse;
-
-    try {
-      const { status } = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      if (status === 200) newResponse = responses.success;
-      else newResponse = responses.failure; 
-    } catch(e) {
-      newResponse = responses.error;
-    }
-
-    setResponse(newResponse);
+    const action = await login({ username, password });
+    dispatch(action);
   };
 
   return (
-    <React.Fragment>
+    <div className="uk-section">
+      <h1>Log In</h1>
+      <hr className="uk-divider-small"/>
       <form className="uk-form" onSubmit={handleSubmit}>
 
         <InputWrapper label="Username">
@@ -51,16 +42,16 @@ export default () => {
           />
         </InputWrapper>
 
-        <InputWrapper>
+        <InputWrapper className="uk-margin-medium">
           <input
-            className="uk-input uk-button uk-button-default uk-width-1-1"
+            className="uk-button uk-button-default uk-width-expand"
             type="submit"
             value="Log In"
           />
         </InputWrapper>
 
       </form>
-      <LoginResponse response={response} />
-    </React.Fragment>
+      <LoginResponse />
+    </div>
   );
 };

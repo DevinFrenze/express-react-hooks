@@ -13,7 +13,9 @@ router.post(login, passport.authenticate('local'), (req, res) => {
 
 router.get(logout, validateSession, (req, res) => {
   req.logout();
-  return res.redirect(login);
+  req.session.destroy((err) => {
+    res.clearCookie('connect.sid', { path: '/' }).send();
+  });
 });
 
 router.get(greeting, validateSession, (req, res) => {

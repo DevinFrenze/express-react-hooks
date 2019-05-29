@@ -10,6 +10,7 @@ const port = 3001;
 const app = express();
 
 // universal setup
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

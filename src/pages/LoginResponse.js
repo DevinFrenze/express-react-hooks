@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-export const responses = Object.freeze({
+import { getLogInStatus } from '../redux/selectors';
+
+const responses = Object.freeze({
   none: 0,
   success: 1,
   failure: 2,
@@ -21,7 +24,14 @@ const responseTextClass = Object.freeze({
   [responses.error]: 'uk-text-warning',
 });
 
-export default ({ response }) => {
+export default () => {
+  const logInStatus = useSelector(getLogInStatus);
+
+  let response = responses['none'];
+  if (logInStatus === 200) response = responses['success'];
+  else if (logInStatus >= 500) response = responses['error'];
+  else if (logInStatus >= 400) response = responses['failure'];
+
   return (
     <p className={`uk-text-center ${responseTextClass[response]}`}>
       {responseText[response]}
