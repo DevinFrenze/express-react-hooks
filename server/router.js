@@ -3,6 +3,7 @@ import passport from 'passport';
 
 import { login, logout, greeting } from './routes';
 import validateSession from './middleware/validateSession';
+import { sessionIdCookieKey } from './constants';
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.post(login, passport.authenticate('local'), (req, res) => {
 router.get(logout, validateSession, (req, res) => {
   req.logout();
   req.session.destroy((err) => {
-    res.clearCookie('connect.sid', { path: '/' }).send();
+    res.clearCookie(sessionIdCookieKey, { path: '/' }).send();
   });
 });
 
