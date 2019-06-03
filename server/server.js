@@ -22,4 +22,7 @@ initializePassport(app);
 // routes
 app.use('', router);
 
-app.listen(port, () => console.log(`Express server listening on port ${port}!`))
+// listen after initializing db
+// app.listen(port, () => console.log(`Express server listening on port ${port}!`));
+
+export default app;
