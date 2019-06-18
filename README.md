@@ -2,7 +2,8 @@
 
 I'm trying to develop a react app w/ hooks and an express server side by side
 
-to run locally in dev mode `npm run dev`
+install with `yarn install`
+to run locally in dev mode `yarn run dev`
 
 the app currently supports:
 
