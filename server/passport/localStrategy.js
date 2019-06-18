@@ -4,6 +4,7 @@ function validateUser(username, password, done) {
   // TODO replace this with our own ORM stuff
   const user = { username, id: username };
 
+  // TODO actually validate password
   if (password === 'password') {
     return done(null, user);
   } else {
